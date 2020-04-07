@@ -1,40 +1,28 @@
 import numpy as np
-import matplotlib.pyplot as plt
-# from mlxtend.evaluate import permutation_test
-# from sklearn.model_selection import permutation_test_score
-# from scipy.stats import zscore
 
 
-def main():
+def read_data():
     with open("data_EX1.txt") as file:
         data = np.loadtxt(file)
-        # plt.plot(data[:, 0], data[:, 1], ".")
-        # plt.show()
-        # pearson = np.corrcoef(data[:, 0], data[:, 1])
-        # zscore = z_score(data[:, 0], data[:, 1])
-        pval = permutation_test(data[:, 0], data[:, 1], 100, z_score)
-        print(pval)
-
-    return
+        return data[:, 0], data[:, 1]
 
 
-def permutation_test(x, y, n, stat):
-    if x.size != y.size:
-        raise ValueError("x and y must have the same length")
-    t = stat(x, y)
-    sum_of_eccentrics = 0
-    for i in range(n):
-        perm = np.random.permutation(y)
-        t_i = stat(x, perm)
-        if t_i > t:
-            sum_of_eccentrics += 1
-    return sum_of_eccentrics / x.size
+def permutation_test(x, y, n=1000, alpha=0.01):
+    cor_coef = np.corrcoef(x, y)[1][0]
+    print("Pearson correlation coefficient test is {}".format(cor_coef))
 
-
-def z_score(x, y):
-    return (np.mean(x) - np.mean(y)) / \
-           np.sqrt(((np.std(x)**2) / x.size) + ((np.std(y)**2) / y.size))
+    counter = 0
+    for i in range(0, n):
+        y_per = np.random.permutation(y)
+        counter = counter + 1 if np.corrcoef(x, y_per)[1][0] >= cor_coef else counter
+        # print("cor coef {}: {}".format(i, np.corrcoef(x, y_per)[1][0]))
+    pval = counter / n
+    if pval < alpha:
+        print("pval is {} --> reject H_0".format(pval))
+    else:
+        print("pval is {} --> accept H_0".format(pval))
 
 
 if __name__ == '__main__':
-    main()
+    x, y = read_data()
+    permutation_test(x,y)
