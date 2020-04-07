@@ -57,6 +57,7 @@ def hoeffding(data):
     return h_n / len(data)**4
 
 
+
 if __name__ == '__main__':
     data = read_data()
     # permutation_test(data, pearson)
