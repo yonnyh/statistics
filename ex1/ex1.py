@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def read_data():
-    return np.genfromtxt("data_EX1.txt", delimiter='\t')
+    return np.genfromtxt("ex1/data_EX1.txt", delimiter='\t')
 
 
 def pearson(data):
