@@ -1,0 +1,374 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass heb-article
+\use_default_options true
+\maintain_unincluded_children false
+\language hebrew
+\language_package babel
+\inputencoding cp1255
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 3cm
+\headheight 2cm
+\headsep 2cm
+\footskip 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language swedish
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+עבוד נתונים בסטטיסטיקה מודרנית, תרגיל
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\end_layout
+
+\begin_layout Author
+שמואל אורנשטיין )
+\numeric on
+204457337
+\numeric off
+(, יהונתן המר )
+\numeric on
+203536651
+\numeric off
+(
+\end_layout
+
+\begin_layout Subsection*
+שאלה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\end_layout
+
+\begin_layout Enumerate
+האלגוריתם: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+השערת ה-
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0
+\numeric off
+: כל המשתנים 
+\begin_inset Formula $X^{i\in\left[m\right]}$
+\end_inset
+
+ בלתי תלויים בזוגות.
+\end_layout
+
+\begin_layout Enumerate
+עבור כל צמד 
+\begin_inset Formula $i,j$
+\end_inset
+
+ )ישנם 
+\begin_inset Formula ${m \choose 2}$
+\end_inset
+
+ צמדים שכאלה(:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+נבצע מבחן פרמוטציות תחת 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+ ובהעזר בסטטיסטי 
+\begin_inset Formula $T$
+\end_inset
+
+, ובכך נשיג את 
+\begin_inset Formula $pval_{i,j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+נשתמש בתיקון בונפרוני, ולכן על מנת לדחות את 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+ נדרוש 
+\begin_inset Formula $pval_{i,j}\le\frac{\alpha}{m}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+זמן ריצה: נשים לב כי 
+\begin_inset Formula $O\left({m \choose 2}\right)=O\left(m^{2}\right)$
+\end_inset
+
+, ולכן נקבל 
+\begin_inset Formula $O\left(g\left(n\right)\cdot m^{2}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+?
+\end_layout
+
+\begin_layout Subsection*
+שאלה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\end_layout
+
+\begin_layout Enumerate
+נסמן 
+\begin_inset Formula $i^{*}=\arg\max_{i}\left\{ p_{i}\le\frac{\alpha i}{m}\right\} $
+\end_inset
+
+.
+ כיוון שאנו דוחים כל השערה עבורה 
+\begin_inset Formula $p_{i}\le\frac{\alpha i}{m}$
+\end_inset
+
+ ורק אותה, נקבל כי נדחות 
+\begin_inset Formula $k$
+\end_inset
+
+ השערות ומכאן ש- 
+\begin_inset Formula $k=i^{*}$
+\end_inset
+
+.
+ כעת:
+\begin_inset Formula 
+\begin{align*}
+C_{k}^{\left(i\right)} & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\left(\dots\right)\right\} \cup\left\{ \left|\mathcal{R}_{BH}\left(\dots\right)\right|=k\right\} \right\} =\\
+ & =\bigcap_{P_{i}\in\left[0,1\right]}\left\{ \left\{ P_{i}>\frac{\alpha k}{m}\right\} \cup\left\{ R=k\right\} \right\} \\
+ & =\left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cup\left\{ R=k\right\} 
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+מתוך איחוד האפשרויות של 
+\begin_inset Formula $C_{k}^{\left(i\right)}$
+\end_inset
+
+ אנחנו נמצאים בתוך המצב שבו 
+\begin_inset Formula $P_{i}$
+\end_inset
+
+ נדחה )שהרי הוא קטן מ- 
+\begin_inset Formula $i^{*}$
+\end_inset
+
+(, ולכן מדובר בדחיה של בדיוק 
+\begin_inset Formula $k$
+\end_inset
+
+ כאשר 
+\begin_inset Formula $i$
+\end_inset
+
+ הוא אחד מהם.
+ הוכחה:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+)
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+( יהי 
+\begin_inset Formula $c\in C_{k}^{\left(i\right)}\cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} $
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\begin{align*}
+c & \in\left\{ \left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cup\left\{ R=k\right\} \right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \\
+ & =\left\{ \left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \right\} \cup\left\{ \left\{ R=k\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \right\} \\
+ & =\left\{ R=k\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} 
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+)
+\begin_inset Formula $\Leftarrow$
+\end_inset
+
+( כיוון שמדובר בשרשרת שוויונות, התהליך בכוון ההפוך זהה.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+ג
+\end_layout
+
+\end_body
+\end_document
