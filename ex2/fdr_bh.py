@@ -1,4 +1,15 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
+
+def generate_data(m=10000, m_0=5000, mu=2, ro=0):
+	mean = np.concatenate((np.zeros(m_0), np.ones(m - m_0) * mu))
+	cov = np.ones((m, m)) * ro
+	np.fill_diagonal(cov, 1)
+	x = np.random.multivariate_normal(mean, cov)
+	plt.hist(x, bins=100)
+	plt.show()
+
 
 
 def fdr_bh(p_val_list, alpha):
@@ -14,11 +25,12 @@ def fdr_bh(p_val_list, alpha):
 
 
 if __name__ == '__main__':
-	pval_list = np.linspace(0, 0.1, 10)
-	# pval_list = np.linspace(0, 0.06, 10)
-	# pval_list = np.linspace(0, 0.05, 10)
-	np.random.seed(0)
-	pval_list = np.random.permutation(pval_list)
-	alpha = 0.05
-	idxs = fdr_bh(pval_list, alpha)
-	print(pval_list[idxs])
+	# pval_list = np.linspace(0, 0.1, 10)
+	# # pval_list = np.linspace(0, 0.06, 10)
+	# # pval_list = np.linspace(0, 0.05, 10)
+	# np.random.seed(0)
+	# pval_list = np.random.permutation(pval_list)
+	# alpha = 0.05
+	# idxs = fdr_bh(pval_list, alpha)
+	# print(pval_list[idxs])
+	generate_data()
