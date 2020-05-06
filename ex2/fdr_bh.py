@@ -74,7 +74,6 @@ def bh_histograms(n=5000, alpha=0.1):
 			# v[i] = len(rejected[rejected < m0])
 
 		plt.hist(r, bins=50)
-		print(np.histogram(r, bins=50))
 		plt.title(f"Histogram of R with rho={rho}")
 		# plt.savefig(f"R_rho{str(rho).replace('.','')}")
 		plt.show()
