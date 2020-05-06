@@ -1,17 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+import statsmodels.api as statsmodels
+
 
 m=1000
-m_0=500
+m0=500
 mu=2
 
+# def generate_data(rho=0):
+# 	mean = np.append(np.zeros(m0), np.ones(m - m0) * mu)
+# 	cov = np.ones((m, m)) * rho
+# 	np.fill_diagonal(cov, 1)
+# 	# np.random.seed(0)
+# 	return np.random.multivariate_normal(mean, cov)
+
+
 def generate_data(rho=0):
-	mean = np.concatenate((np.zeros(m_0), np.ones(m - m_0) * mu))
-	cov = np.ones((m, m)) * rho
-	np.fill_diagonal(cov, 1)
-	# np.random.seed(0)
-	return np.random.multivariate_normal(mean, cov)
+	mus = np.append(np.zeros(m0), mu * np.ones(m - m0))
+	s = np.random.normal(0, 1, m)
+	return rho * s[0] + (1 - rho) * s + mus
 
 
 def histogram_and_densities(x, pi_0=0.5):
@@ -35,7 +43,7 @@ def fdr(c=2):
 			x = generate_data()
 			r_idx = np.where(np.logical_and(np.logical_and(x > -4, x < 4), x>=c))[0]
 			r = len(r_idx)
-			v = len(r_idx[r_idx < m_0])
+			v = len(r_idx[r_idx < m0])
 			fdrs[i] = v / r
 		print(np.mean(fdrs))
 
@@ -51,45 +59,57 @@ def fdr_bh(p_val_list, alpha):
 		rejected_idxs = sorted_idxs
 	return rejected_idxs
 
-def bh_histograms(n=100, alpha=0.1):
-	r_arr, v_arr, q_arr = np.zeros(n), np.zeros(n), np.zeros(n)
+
+def bh_histograms(n=5000, alpha=0.1):
+	r, v, q = np.zeros(n), np.zeros(n), np.zeros(n)
 	for rho in [0, 0.95]:
 		for i in range(n):
-			print(i)
 			x = generate_data(rho=rho)
-			rejected_idx = fdr_bh(x, alpha)
-			r_arr[i] = len(rejected_idx)
-			v_arr[i] = len(rejected_idx[rejected_idx < m_0])
-			q_arr[i] = len(rejected_idx[rejected_idx < m_0]) / len(rejected_idx) if len(rejected_idx) else np.nan
-		plt.hist(r_arr, bins=100)
-		plt.title(f"histogram of R with rho={rho}")
-		plt.show()
-		plt.hist(v_arr, bins=100)
-		plt.title(f"histogram of V with rho={rho}")
-		plt.show()
-		plt.hist(q_arr, bins=100)
-		plt.title(f"histogram of Q with rho={rho}")
+			p_vals = norm.sf(x)
+			# rejected = fdr_bh(p_vals, alpha)
+			rejected, _, _, _ = statsmodels.stats.multipletests(p_vals, alpha=alpha, method='fdr_bh')
+			r[i] = max(np.count_nonzero(rejected), 1)
+			v[i] = np.count_nonzero(rejected[:m0])
+			# r[i] = max(len(rejected), 1)
+			# v[i] = len(rejected[rejected < m0])
+
+		plt.hist(r, bins=50)
+		print(np.histogram(r, bins=50))
+		plt.title(f"Histogram of R with rho={rho}")
+		# plt.savefig(f"R_rho{str(rho).replace('.','')}")
 		plt.show()
 
-def bh_graph(n=10, alpha=0.1):
+		plt.hist(v, bins=50)
+		plt.title(f"Histogram of V with rho={rho}")
+		# plt.savefig(f"V_rho{str(rho).replace('.','')}")
+		plt.show()
+
+		q = v / r
+		plt.hist(q, bins=50)
+		plt.title(f"Histogram of Q with rho={rho}")
+		# plt.savefig(f"Q_rho{str(rho).replace('.','')}")
+		plt.show()
+
+
+def bh_graph(n=5000, alpha=0.1):
 	rhos = np.arange(0, 1.05, 0.05)
 	means = np.zeros(len(rhos))
 	stds = np.zeros(len(rhos))
 
 	for j, rho in enumerate(rhos):
 		print(rho)
-		q_arr = np.zeros(n)
+		q = np.zeros(n)
 		for i in range(n):
 			x = generate_data(rho=rho)
-			rejected_idx = fdr_bh(x, alpha)
-			q_arr[i] = len(rejected_idx[rejected_idx < m_0]) / len(rejected_idx) if len(rejected_idx) else np.nan
-		means[j] = np.mean(q_arr)
-		stds[j] = np.std(q_arr)
+			p_vals = norm.sf(x)
+			rejected = fdr_bh(p_vals, alpha)
+			q[i] = len(rejected[rejected < m0]) / max(len(rejected), 1)
+		means[j] = np.mean(q)
+		stds[j] = np.std(q)
 
-	plt.plot(rhos, means, label="means")
-	plt.plot(rhos, stds, label="standard deviations")
-	plt.title("means and standard deviation as a function of rho")
-	plt.legend()
+	plt.errorbar(rhos, means, stds, linestyle='None', marker='^')
+	plt.xticks(rhos)
+	plt.title("mean and standard deviation as a function of rho")
 	plt.show()
 
 
@@ -99,7 +119,7 @@ def FDR():
 
 	fdrs_mat = (np.broadcast_to(x, (z.size, x.size)) <= z)
 	r = np.sum(fdrs_mat, axis=1)
-	v = np.sum(fdrs_mat[:, :m_0], axis=1)
+	v = np.sum(fdrs_mat[:, :m0], axis=1)
 	fdrs = np.divide(v, r, where=r > 0)
 
 	plt.plot(z, fdrs)
@@ -121,8 +141,7 @@ if __name__ == '__main__':
 	# print(pval_list[idxs])
 
 	# q5
-	# x = generate_data()
+	x = generate_data()
 	# histogram_and_densities(x)
-	# fdr()
-	# bh_histograms()
-	bh_graph()
+	bh_histograms()
+	# bh_graph()
