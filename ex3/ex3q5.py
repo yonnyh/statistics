@@ -38,8 +38,8 @@ def reularization_path(X_train, y_train, features, method=Lasso):
 
 
 def cross_validation(X_train, y_train, X_test, y_test, cv=10, method=LassoCV):
-    l = np.exp(np.arange(-3, 10, 0.1))
-    m = glmnet.ElasticNet(alpha=1, n_splits=5, standardize=False, lambda_path=l).fit(X_train, y_train)
+    # l = np.exp(np.arange(-3, 10, 0.1))
+    # m = glmnet.ElasticNet(alpha=1, n_splits=5, standardize=False, lambda_path=l).fit(X_train, y_train)
     model = method(cv=10).fit(X_train, y_train)
     print(f"best alpha is {model.alpha_}")
     y_pred = model.predict(X_test)
