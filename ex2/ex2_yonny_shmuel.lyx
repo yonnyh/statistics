@@ -149,104 +149,313 @@
 \end_layout
 
 \begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+תחילה נמצא את 
+\begin_inset Formula $N$
+\end_inset
+
+ המינימאלי, עבורו 
+\begin_inset Formula $FWER<\alpha$
+\end_inset
+
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+מספר ההשערות 
+\begin_inset Formula $M$
+\end_inset
+
+ שעלינו לבדוק הוא מספר הזוגות שניתן ליצור מ- 
+\begin_inset Formula $m$
+\end_inset
+
+ הוקטורים המקריים 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+.
+ מדובר ב- 
+\begin_inset Formula $M={m \choose 2}=\frac{m\left(m-1\right)}{2}$
+\end_inset
+
+ֵֵ.
+ 
+\end_layout
+
+\begin_layout Itemize
+תחת תיקון בונפרוני, נדרוש 
+\begin_inset Formula $\forall i\ pval_{i}\le\frac{\alpha}{M}=\frac{2\alpha}{m\left(m-1\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+מבחן הפרמוטציות עבור כל 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+ בוחן את מספר הסטטיסטים 
+\begin_inset Formula $T_{k\in\left[n\right]}=T\left(\sigma_{k}\left(X_{i}\right)\right)$
+\end_inset
+
+ שגדולים מ- 
+\begin_inset Formula $T_{0}=T\left(X_{i}\right)$
+\end_inset
+
+, כך ש- 
+\begin_inset Formula 
+\[
+pval_{i,j}=\frac{1}{N}\sum_{k=1}^{N}\boldsymbol{1}_{\left\{ T_{k}>T_{0}\right\} }
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+כעת: 
+\begin_inset Formula 
+\[
+\frac{1}{N}\le\frac{2\alpha}{m\left(m-1\right)}\Leftrightarrow N\ge\frac{m\left(m-1\right)}{2\alpha}
+\]
+
+\end_inset
+
+ולכן נוכל להסתפק ב- 
+\begin_inset Formula 
+\[
+N=\left\lceil \frac{m\left(m-1\right)}{2\alpha}\right\rceil 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
 האלגוריתם: 
 \end_layout
 
 \begin_deeper
-\begin_layout Enumerate
-השערת ה-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-0
-\numeric off
-: כל המשתנים 
-\begin_inset Formula $X^{i\in\left[m\right]}$
-\end_inset
-
- בלתי תלויים בזוגות.
-\end_layout
-
-\begin_layout Enumerate
-עבור כל צמד 
+\begin_layout Itemize
+לכל צמד 
 \begin_inset Formula $i,j$
 \end_inset
 
- )ישנם 
-\begin_inset Formula ${m \choose 2}$
+ מתוך 
+\begin_inset Formula $M$
 \end_inset
 
- צמדים שכאלה(:
+ הצמדים האפשריים:
 \end_layout
 
 \begin_deeper
-\begin_layout Enumerate
-נבצע מבחן פרמוטציות תחת 
-\begin_inset Formula $H_{0}$
+\begin_layout Itemize
+נמצא את 
+\begin_inset Formula $T_{0}=T\left(X_{i}\right)$
 \end_inset
 
- ובהעזר בסטטיסטי 
+
+\end_layout
+
+\begin_layout Itemize
+לכל פרמוטציה 
+\begin_inset Formula $k$
+\end_inset
+
+ מתוך 
+\begin_inset Formula $N$
+\end_inset
+
+ הפרמוטציות האפשריות:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+נמצא את 
+\begin_inset Formula $T_{k}=T\left(\sigma_{k}\left(X_{j}\right)\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+נחשב 
+\begin_inset Formula $pval_{i,j}=\frac{1}{N}\sum_{k=1}^{N}\boldsymbol{1}_{\left\{ T_{k}>T_{0}\right\} }$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+נדחה אם 
+\begin_inset Formula $pval_{i,j}\le\frac{\alpha}{M}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+זמן ריצה: 
+\begin_inset Formula 
+\[
+M\cdot\left(\left(N+1\right)\cdot g\left(n\right)+N\right)=\frac{m\left(m-1\right)}{2}\left(\left(\left\lceil \frac{m\left(m-1\right)}{2\alpha}\right\rceil +1\right)g\left(n\right)+\left\lceil \frac{m\left(m-1\right)}{2\alpha}\right\rceil \right)=O\left(\frac{m^{4}g\left(n\right)}{\alpha}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+נשים לב - כאשר נתון לנו ש- 
 \begin_inset Formula $T$
 \end_inset
 
-, ובכך נשיג את 
-\begin_inset Formula $pval_{i,j}$
+ לא תלוי בהתפלגות הדאטה, נחסך מאיתנו הצורך לבצע מבחן פרמוציה עבור בין כל
+ שני 
+\begin_inset Formula $X_{i},X_{j}$
+\end_inset
+
+ שונים: הגרלה של 
+\begin_inset Formula $N$
+\end_inset
+
+ פרמוטציות של 
+\begin_inset Formula $X_{j}$
+\end_inset
+
+ לא תתן תוצאות שונות מביצוע אותן פרמוטציות עבור התפלגות כלשהי לבחירתנו,
+ ובפרט: זו הנורמלית.
+\end_layout
+
+\begin_layout Itemize
+האלגוריתם:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+נגריל וקטור נורמאלי 
+\begin_inset Formula $V$
+\end_inset
+
+ בגודל 
+\begin_inset Formula $n$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Enumerate
-נשתמש בתיקון בונפרוני, ולכן על מנת לדחות את 
-\begin_inset Formula $H_{0}$
+\begin_layout Itemize
+לכל פרמוטציה 
+\begin_inset Formula $k$
 \end_inset
 
- נדרוש 
-\begin_inset Formula $pval_{i,j}\le\frac{\alpha}{m}$
+ מתוך 
+\begin_inset Formula $N$
 \end_inset
 
-.
+ הפרמוטציות האפשריות:
 \end_layout
 
-\end_deeper
-\begin_layout Standard
-זמן ריצה: נשים לב כי 
-\begin_inset Formula $O\left({m \choose 2}\right)=O\left(m^{2}\right)$
-\end_inset
-
-, ולכן נקבל 
-\begin_inset Formula $O\left(g\left(n\right)\cdot m^{2}\right)$
+\begin_deeper
+\begin_layout Itemize
+נמצא את 
+\begin_inset Formula $T\left(\sigma_{k}\left(V\right)\right)$
 \end_inset
 
 
 \end_layout
 
 \end_deeper
-\begin_layout Enumerate
-?
+\begin_layout Itemize
+לכל לכל צמד 
+\begin_inset Formula $i,j$
+\end_inset
+
+ מתוך 
+\begin_inset Formula $M$
+\end_inset
+
+ הצמדים האפשריים:
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+נחשב את 
+\begin_inset Formula $T_{0}=T\left(X_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+נחשב 
+\begin_inset Formula $pval_{i,j}=\frac{1}{N}\sum_{k=1}^{N}\boldsymbol{1}_{\left\{ T_{k}>T_{0}\right\} }$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+נדחה אם 
+\begin_inset Formula $pval_{i,j}\le\frac{\alpha}{M}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+זמן ריצה: 
+\begin_inset Formula 
+\[
+N\cdot g\left(n\right)+M\cdot N=N\left(g\left(n\right)+M\right)=\left\lceil \frac{m\left(m-1\right)}{2\alpha}\right\rceil \left(g\left(n\right)+\frac{m\left(m-1\right)}{2}\right)=O\left(\frac{m^{2}\left(g\left(n\right)+m^{2}\right)}{\alpha}\right)=O\left(\frac{m^{2}g\left(n\right)}{\alpha}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Subsection*
 שאלה
 \family roman
@@ -277,79 +486,591 @@
 \end_layout
 
 \begin_layout Enumerate
-נסמן 
-\begin_inset Formula $i^{*}=\arg\max_{i}\left\{ p_{i}\le\frac{\alpha i}{m}\right\} $
+נגדיר 
+\begin_inset Formula $\mathcal{R}_{BH}^{i}$
+\end_inset
+
+ כקבוצת האינקדסים שאינם 
+\begin_inset Formula $i$
+\end_inset
+
+ ונדחים ע"י פרוצדורת
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+BH
+\lang hebrew
+.
+ נשים לב ש
+\begin_inset Formula 
+\[
+\left\{ \left|\mathcal{R}_{BH}\right|=k\right\} =\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ i\in\mathcal{R}_{BH}\right\} \right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k\right\} \cap\left\{ i\notin\mathcal{R}_{BH}\right\} \right\} 
+\]
+
+\end_inset
+
+ כעת:
+\begin_inset Formula 
+\begin{align*}
+C_{k}^{\left(i\right)} & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left|\mathcal{R}_{BH}\right|=k\right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ i\in\mathcal{R}_{BH}\right\} \right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k\right\} \cap\left\{ i\notin\mathcal{R}_{BH}\right\} \right\} \right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ i\in\mathcal{R}_{BH}\right\} \right\} \right\} \cup\left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k\right\} \cap\left\{ i\notin\mathcal{R}_{BH}\right\} \right\} \right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ i\in\mathcal{R}_{BH}\right\} \right\} \right\} \cup\left\{ i\notin\mathcal{R}_{BH}\right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ i\in\mathcal{R}_{BH}\right\} \right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\right\} \cup\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \right\} \\
+ & =\left\{ \bigcap_{q\in\left[0,1\right]}\left\{ i\notin\mathcal{R}_{BH}\right\} \right\} \cup\left\{ \bigcap_{q\in\left[0,1\right]}\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \right\} \\
+ & =\cancelto{\emptyset}{\left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha i}{m}\right\} \right\} }\cup\left\{ \bigcap_{q\in\left[0,1\right]}\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \right\} \\
+ & =\bigcap_{q\in\left[0,1\right]}\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \\
+ & =\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \\
+ & =\left\{ \bigcap_{j=k+1,j\ne i}^{m}\left\{ P_{j}>\frac{\alpha j}{m}\right\} \right\} \cap\left\{ \bigcap_{j=1,j\ne i}^{k}\left\{ P_{j}\le\frac{\alpha j}{m}\right\} \right\} 
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+המעבר מיידי: 
+\begin_inset Formula 
+\[
+C_{k}^{\left(i\right)}\cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} =\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} =\left\{ R=k\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+הואיל ונתון שלכל 
+\begin_inset Formula $i\ne j$
+\end_inset
+
+ מתקיים ש- 
+\begin_inset Formula $P_{i}$
+\end_inset
+
+ בלתי תלוי ב- 
+\begin_inset Formula $P_{j}$
+\end_inset
+
+, והואיל שהביטוי 
+\begin_inset Formula $C_{k}^{\left(i\right)}$
+\end_inset
+
+ לא מכיל ביטוי של 
+\begin_inset Formula $P_{i}$
+\end_inset
+
+, נקבל כי 
+\begin_inset Formula $C_{k}^{\left(i\right)}$
+\end_inset
+
+ בלתי תלוי ב- 
+\begin_inset Formula $P_{i}$
 \end_inset
 
 .
- כיוון שאנו דוחים כל השערה עבורה 
-\begin_inset Formula $p_{i}\le\frac{\alpha i}{m}$
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
- ורק אותה, נקבל כי נדחות 
-\begin_inset Formula $k$
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula 
+\[
+\forall k_{1}\ne k_{2}\ \left(\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k_{1}-1\right\} \cap\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k_{2}-1\right\} =\emptyset\right)\Leftrightarrow\left(C_{k_{1}}^{\left(i\right)}\cap C_{k_{2}}^{\left(i\right)}=\emptyset\right)
+\]
+
 \end_inset
 
- השערות ומכאן ש- 
-\begin_inset Formula $k=i^{*}$
+
+\end_layout
+
+\begin_layout Enumerate
+נשים לב כי עבור סדרת 
+\begin_inset Formula $P_{i}$
+\end_inset
+
+ ממויינת כלשהי מתקיים:
+\begin_inset Formula 
+\[
+\bigcup_{k=1}^{m}C_{k}^{\left(i\right)}=\bigcup_{k=1}^{m}\left\{ \left|\mathcal{R}_{BH}^{i}\right|=k-1\right\} =\bigcup_{k=0}^{m}\left\{ \left|\mathcal{R}_{BH}\right|=k\right\} 
+\]
+
+\end_inset
+
+כעת, תהי סדרה ממוינת כלשהי של 
+\begin_inset Formula $P_{i}$
+\end_inset
+
+.
+ פרוצדורת
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+BH
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+תחזיר עבורה סדרה של 
+\begin_inset Formula $k\in\left\{ 0,\dots,m\right\} $
+\end_inset
+
+ אחדות ולאחריה 
+\begin_inset Formula $m-k$
+\end_inset
+
+ אפסים )כאשר אפס היא קבלה של ההשערה, ו-
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+היא דחיה שלה(.
+ הביטוי שלמעלה מכיל כל סדרה שכזו.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+התוצאה הנ"ל נכונה גם עבור סדרה שאינה ממויינת, שהרי נוכל למיין אותה ולהפעיל
+ את אותה הפרוצדורה בדיוק.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsection*
+שאלה
+\family roman
+\series bold
+\shape up
+\size larger
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+3
+\end_layout
+
+\begin_layout Enumerate
+נציב בהגדרת ה-
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+FDR
+\lang hebrew
+ שנתנה כרמז את הגדרת מאורעות 
+\begin_inset Formula $A$
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{align*}
+FDR & =\sum_{i=1}^{m_{0}}\sum_{k=1}^{m}\frac{1}{k}\Pr\left(\left\{ P_{i}\le\frac{k\alpha}{m}\right\} \cap C_{k}^{\left(i\right)}\right)=\sum_{i=1}^{m_{0}}\sum_{k=1}^{m}\sum_{j=1}^{k}\frac{1}{k}\Pr\left(A_{kj}^{\left(i\right)}\right)\\
+ & =\sum_{i=1}^{m_{0}}\sum_{j=1}^{m}\sum_{k=j}^{m}\frac{1}{k}\Pr\left(A_{kj}^{\left(i\right)}\right)\le\sum_{i=1}^{m_{0}}\sum_{j=1}^{m}\sum_{k=1}^{m}\frac{1}{j}\Pr\left(A_{kj}^{\left(i\right)}\right)\\
+ & =\sum_{i=1}^{m_{0}}\sum_{j=1}^{m}\frac{1}{j}\Pr\left(P_{i}\in\left(\frac{\left(j-1\right)\alpha}{m},\frac{j\alpha}{m}\right]\right)=\sum_{i=1}^{m_{0}}\sum_{j=1}^{m}\frac{\alpha}{jm}=\frac{\alpha m_{0}}{m}\sum_{i=1}^{m_{0}}\frac{1}{j}\\
+ & \le\frac{\alpha m_{0}}{m}\left(\log\left(m\right)+1\right)
+\end{align*}
+
+\end_inset
+
+כאשר אי-השיון האחרון נובע מחסם על הטור ההרמוני:
+\begin_inset Formula 
+\[
+\log\left(n\right)\le\sum_{j=1}^{n}\frac{1}{j}\le\log\left(n\right)+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+כשם שתלות חיובית בין הסטיסטים מבטיחה 
+\begin_inset Formula $FDR\le\frac{\alpha m_{0}}{m}$
+\end_inset
+
+, נצפה שתלות שלילית תייצר לנו חסם תחתון דומה.
+ נייצר שני גאוסיאנים )כלומר 
+\begin_inset Formula $m=2$
+\end_inset
+
+( בעלי תלות שלילית )כלומר 
+\begin_inset Formula $\rho<0$
+\end_inset
+
+( כך שנקבל 
+\begin_inset Formula 
+\[
+f_{X_{1},X_{2}}\left(x_{1},x_{2}\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{1}{2\left(1-\rho^{2}\right)}\left(x_{1}^{2}-2\rho x_{1}x_{2}+x_{2}^{2}\right)\right)
+\]
+
+\end_inset
+
+כפונקציית צפיפות, ונניח 
+\begin_inset Formula $m_{0}=m$
+\end_inset
+
+ ו- 
+\begin_inset Formula $\alpha=\frac{1}{2}$
 \end_inset
 
 .
  כעת:
 \begin_inset Formula 
 \begin{align*}
-C_{k}^{\left(i\right)} & =\bigcap_{q\in\left[0,1\right]}\left\{ \left\{ i\notin\mathcal{R}_{BH}\left(\dots\right)\right\} \cup\left\{ \left|\mathcal{R}_{BH}\left(\dots\right)\right|=k\right\} \right\} =\\
- & =\bigcap_{P_{i}\in\left[0,1\right]}\left\{ \left\{ P_{i}>\frac{\alpha k}{m}\right\} \cup\left\{ R=k\right\} \right\} \\
- & =\left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cup\left\{ R=k\right\} 
+FDR & =\mathbb{E}\left[\frac{V}{R^{+}}\right]=P\left(R>0\right)=P\left(\left\{ P_{\left(2\right)}\le\frac{1}{2}\right\} \cup\left\{ P_{\left(1\right)}\le\frac{1}{4}\right\} \right)\\
+ & =P\left(\left\{ \max\left\{ X_{1},X_{2}\right\} \le0\right\} \cup\left\{ \min\left\{ X_{1},X_{2}\right\} \le\Phi^{-1}\left(\frac{1}{4}\right)\right\} \right)\\
+ & =\intop_{-\infty}^{0}\intop_{-\infty}^{0}f_{X_{1},X_{2}}\left(x_{1},x_{2}\right)dx_{1}dx_{2}+2\intop_{0}^{\infty}\intop_{-\infty}^{\Phi^{-1}\left(\frac{1}{4}\right)}f_{X_{1},X_{2}}\left(x_{1},x_{2}\right)dx_{1}dx_{2}
 \end{align*}
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Enumerate
-מתוך איחוד האפשרויות של 
-\begin_inset Formula $C_{k}^{\left(i\right)}$
-\end_inset
-
- אנחנו נמצאים בתוך המצב שבו 
-\begin_inset Formula $P_{i}$
-\end_inset
-
- נדחה )שהרי הוא קטן מ- 
-\begin_inset Formula $i^{*}$
-\end_inset
-
-(, ולכן מדובר בדחיה של בדיוק 
-\begin_inset Formula $k$
-\end_inset
-
- כאשר 
-\begin_inset Formula $i$
-\end_inset
-
- הוא אחד מהם.
- הוכחה:
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-)
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
-( יהי 
-\begin_inset Formula $c\in C_{k}^{\left(i\right)}\cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} $
-\end_inset
-
-.
+\begin_layout Standard
+הצבנו באתר 
+\lang english
+https://socr.umich.edu/HTML5/BivariateNormal/
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
  
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+וקיבלנו
+\begin_inset Formula 
+\[
+=2\cdot0.556+0.0518=0.563>0.5=\alpha
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Remarks
+שאלות
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+עד
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+5
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+סעיף ב במחברת המצורפת
+\end_layout
+
+\begin_layout Subsection*
+שאלה
+\family roman
+\series bold
+\shape up
+\size large
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+5
+\end_layout
+
+\begin_layout Paragraph
+סעיף ב
+\end_layout
+
+\begin_layout Standard
+\align right
+נשים לב שמתקיים: 
 \begin_inset Formula 
 \begin{align*}
-c & \in\left\{ \left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cup\left\{ R=k\right\} \right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \\
- & =\left\{ \left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\alpha k}{m}\right\} \right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \right\} \cup\left\{ \left\{ R=k\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} \right\} \\
- & =\left\{ R=k\right\} \cap\left\{ P_{i}\le\frac{\alpha k}{m}\right\} 
+FDR\left(z\right) & =P\left(H_{0}|X_{i}\geq z\right)=\frac{P\left(H_{0}\right)P\left(X_{i}\geq z|H_{0}\right)}{P\left(X_{i}\geq z\right)}=\\
+ & =\frac{\pi_{0}\left(1-F_{0}\left(z\right)\right)}{\pi_{0}\left(1-F_{0}\left(z\right)\right)+\left(1-\pi_{0}\right)\left(1-F_{1}\left(z\right)\right)}=\frac{\frac{1}{2}\left(1-\Phi\left(z\right)\right)}{\frac{1}{2}\left(1-\Phi\left(z\right)\right)+\frac{1}{2}\left(1-\Phi\left(z-2\right)\right)}\\
+ & =\frac{1-\Phi\left(z\right)}{1-\Phi\left(z\right)+1-\Phi\left(z-2\right)}
 \end{align*}
 
 \end_inset
@@ -357,17 +1078,19 @@ c & \in\left\{ \left\{ \bigcap_{P_{i}\in\left[0,1\right]}\left\{ P_{i}>\frac{\al
 
 \end_layout
 
-\begin_layout Itemize
-)
-\begin_inset Formula $\Leftarrow$
+\begin_layout Standard
+\align right
+ובדומה לכך מתקיים: 
+\begin_inset Formula 
+\begin{align*}
+fdr\left(z\right) & =P\left(H_{0}|X_{i}=z\right)=\frac{P\left(H_{0}\right)P\left(X_{i}=z|H_{0}\right)}{P\left(X_{i}=z\right)}\\
+ & =\frac{\pi_{0}f_{0}\left(z\right)}{\pi_{0}f_{0}\left(z\right)+\left(1-\pi_{0}\right)f_{1}\left(z\right)}=\frac{\frac{1}{2\sqrt{2\pi}}e^{-\frac{z^{2}}{2}}}{\frac{1}{2\sqrt{2\pi}}e^{-\frac{z^{2}}{2}}+\frac{1}{2\sqrt{2\pi}}e^{-\frac{(z-2)^{2}}{2}}}\\
+ & =\frac{1}{1+e^{2(z-1)}}
+\end{align*}
+
 \end_inset
 
-( כיוון שמדובר בשרשרת שוויונות, התהליך בכוון ההפוך זהה.
-\end_layout
 
-\end_deeper
-\begin_layout Enumerate
-ג
 \end_layout
 
 \end_body

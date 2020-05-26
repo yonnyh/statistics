@@ -53,7 +53,9 @@ def fdr_bh(p_val_list, alpha):
 	sorted_idxs = np.argsort(p_val_list)
 	sorted_idx_rejected_bool = p_val_list[sorted_idxs] <= (alpha * np.arange(1, m+1) / m)
 	if not np.all(sorted_idx_rejected_bool):
-		k = np.where(sorted_idx_rejected_bool == False)[0][0] - 1  # max idx of acception continuously
+		k = np.where(sorted_idx_rejected_bool == False)[0][0] - 1  # max idx of acception contin
+
+		# uously
 		rejected_idxs = sorted_idxs[:k+1]
 	else:
 		rejected_idxs = sorted_idxs
@@ -112,8 +114,8 @@ def bh_graph(n=5000, alpha=0.1):
 	plt.show()
 
 
-def FDR():
-	x = generate_data()
+def FDR(rho=0):
+	x = generate_data(rho)
 	z = np.linspace(-4, 4, 100)[:, np.newaxis]
 
 	fdrs_mat = (np.broadcast_to(x, (z.size, x.size)) <= z)
@@ -123,10 +125,6 @@ def FDR():
 
 	plt.plot(z, fdrs)
 	plt.show()
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -141,6 +139,8 @@ if __name__ == '__main__':
 
 	# q5
 	x = generate_data()
+	rho_axis = np.linspace(-1, 1, m)
+	y = 1 / ()
 	# histogram_and_densities(x)
-	bh_histograms()
+	# bh_histograms()
 	# bh_graph()
