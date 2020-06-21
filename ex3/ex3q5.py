@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.datasets import load_boston
-from sklearn.linear_model import Lasso, LassoCV, Ridge, RidgeCV, LinearRegression
+from sklearn.linear_model import Lasso, Ridge, LinearRegression
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import glmnet
@@ -15,7 +15,6 @@ def arrange_data():
     y_train = data['target'][:n_train]
     y_test = data['target'][n_train:]
     features = data['feature_names']
-    n = data['data'].shape[0]
     return X_train, X_test, y_train, y_test, features
 
 
@@ -54,20 +53,17 @@ def freedom_degrees(X_train, y_train, X_test, y_test, lasso=True):
             deg = np.count_nonzero(model.coef_)
         else:
             model = Ridge(alpha=lamb).fit(X_train, y_train)
-            # deg = np.sum(s_2 / (s_2 + (lamb * 506) / np.sqrt(np.var(np.concatenate((y_train, y_test))) * 505/506)))
             deg = np.sum(s_2 / (s_2 + lamb))
 
         mse_train = mean_squared_error(model.predict(X_train), y_train)
         MSE_train.append(mse_train)
         mse_test = mean_squared_error(model.predict(X_test), y_test)
         MSE_test.append(mse_test)
-        # sigma2_hat = mse_train * n_train / (n_train - deg)
         lin_reg = LinearRegression().fit(X_train, y_train)
-        ls_sigma2_hat = np.sum(mean_squared_error(lin_reg.predict(X_train), y_train) / (506-13-1))
+        ls_sigma2_hat = np.sum(mean_squared_error(lin_reg.predict(X_train), y_train)) / (506-13-1)
         estimated_mse_test = mse_train + (2 * deg / n_train) * ls_sigma2_hat
         estimated_MSE_test.append(estimated_mse_test)
 
-    # print(np.log(MSE_train), np.log(MSE_test), np.log(estimated_MSE_test))
     plt.plot(np.log(lambdas), MSE_train, 'o', label='train')
     plt.plot(np.log(lambdas), MSE_test,label='test')
     plt.plot(np.log(lambdas), estimated_MSE_test, label='est_test')
@@ -75,20 +71,9 @@ def freedom_degrees(X_train, y_train, X_test, y_test, lasso=True):
     plt.show()
 
 
-def lasso_freedom_degrees(X_train, y_train):
-    degs = []
-    for lamb in lambdas:
-        model = Lasso(alpha=lamb).fit(X_train, y_train)
-        degs.append(np.count_nonzero(model.coef_))
-    plt.plot(lambdas, degs)
-    plt.xscale('log')
-    plt.show()
-    # print(f"freedom degree of lasso model is {deg}")
-
-
 if __name__ == '__main__':
     X_train, X_test, y_train, y_test, features = arrange_data()
-    # reularization_path(X_train, y_train, features)
+    reularization_path(X_train, y_train, features)
     # reularization_path(X_train, y_train, features, method=Ridge)
     # cross_validation(X_train, y_train, X_test, y_test)
     # cross_validation(X_train, y_train, X_test, y_test, lasso=False)
