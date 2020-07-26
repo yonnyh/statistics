@@ -2,9 +2,9 @@ import numpy as np
 import sys
 import time
 
-from cluster.selfrepresentation import ElasticNetSubspaceClustering, SparseSubspaceClusteringOMP
-from gen_union_of_subspaces import gen_union_of_subspaces
-from metrics.cluster.accuracy import clustering_accuracy
+from .cluster.selfrepresentation import ElasticNetSubspaceClustering, SparseSubspaceClusteringOMP
+from .gen_union_of_subspaces import gen_union_of_subspaces
+from .metrics.cluster.accuracy import clustering_accuracy
 from sklearn import cluster
 
 # =================================================

@@ -3,10 +3,11 @@ import time
 
 import torch
 
-from cluster.selfrepresentation import ElasticNetSubspaceClustering, SparseSubspaceClusteringOMP
-from decomposition.dim_reduction import dim_reduction
+from project.cluster.selfrepresentation import ElasticNetSubspaceClustering, \
+    SparseSubspaceClusteringOMP
+from project.decomposition.dim_reduction import dim_reduction
 from kymatio import Scattering2D
-from metrics.cluster.accuracy import clustering_accuracy
+from project.metrics.cluster.accuracy import clustering_accuracy
 from sklearn import cluster
 from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score
 from sklearn.preprocessing import normalize
