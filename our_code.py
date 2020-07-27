@@ -41,12 +41,22 @@ def get_data(n, p, sigma_2):
     return data, s
 
 
-def run_alg(data, s, d, cst, optm, lmbda, k):
-    if k != 0 and cst == 1:
-        k = d + 1
-    # display(data)
+def plot_predicted_data(Xp, Grps):
+    plt.scatter(Xp.T[:, 0], Xp.T[:, 1])
+    plt.show()
+    l1 = np.array([Xp.T[i] for i in range(Xp.shape[1]) if Grps[i] == 1])
+    l2 = np.array([Xp.T[i] for i in range(Xp.shape[1]) if Grps[i] == 2])
+    plt.scatter(l1[:, 0], l1[:, 1])
+    plt.scatter(l2[:, 0], l2[:, 1])
+    plt.show()
+
+
+def run_alg(data, s, d, cst, optm, lmbda, n_subspaces, n_edges_to_keep = 0):
+    if cst == 1 and n_edges_to_keep != 0:
+        n_edges_to_keep = d + 1
+    display(data)
     Xp = DataProjection(data.T, d, type='NormalProj')
-    # display(Xp.T, data)
+    display(Xp.T, data)
     CMat = SparseCoefRecovery(Xp, cst, optm, lmbda)
     # plt.imshow(CMat)
     # plt.show()
@@ -58,18 +68,19 @@ def run_alg(data, s, d, cst, optm, lmbda, k):
     CMatC, sc, OutlierIndx, Fail = OutlierDetection(CMat, s)
 
     if not Fail:
-        CKSym = BuildAdjacency(CMatC, k)
-        Grps = SpectralClustering(CKSym, data.shape[0])
+        CKSym = BuildAdjacency(CMatC, n_edges_to_keep)
+        Grps = SpectralClustering(CKSym, n_subspaces)
         Grps = BestMap(sc, Grps)
         Missrate = float(np.sum(sc != Grps)) / sc.size
         print("Misclassification rate: {:.4f} %".format(Missrate * 100))
+        plot_predicted_data(Xp, Grps)
     else:
         print("Something failed")
 
 
 def main():
     data, s = get_data(n=200, p=3, sigma_2=1)
-    run_alg(data, s, d=2, cst=0, optm='L1Perfect', lmbda=0.001, k=0)
+    run_alg(data, s, d=2, cst=1, optm='L1Perfect', lmbda=0.001, n_subspaces=2, n_edges_to_keep=0)
 
 
 if __name__ == "__main__":
