@@ -2,7 +2,7 @@
 
 import numpy as np
 import sys
-from Hungarian import *
+from ssc.Hungarian import *
 
 
 def BestMap(L1, L2):
