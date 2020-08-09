@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.linalg import subspace_angles
+from sklearn.cluster import KMeans
 
 from ssc.DataProjection import *
 from ssc.BuildAdjacency import *
@@ -50,22 +51,21 @@ def get_theta(Bs):
             thetas[i, j] = max(subspace_angles(Bs[i], Bs[j])) if i != j else 0
     return np.sum(thetas) / np.count_nonzero(thetas)
 
-def update_Bs(Bs, theta):
-    pass
 
 def get_data(n, p, d, sigma_2, n_subspaces, theta_coef=10**-1):
-    z = np.random.randint(1, n_subspaces + 1, n)
+    z = np.concatenate((np.arange(1, n_subspaces+1, 1), np.random.randint(1, n_subspaces + 1, n - n_subspaces)))
+    # z = np.random.randint(1, n_subspaces + 1, n)
     w = np.random.multivariate_normal(np.zeros(d), np.eye(d), n).reshape((n, d, 1))
     Bs = np.random.uniform(-1, 1, p * d * (n_subspaces + 1)).reshape((p, d * (n_subspaces + 1)))
     Bs /= np.linalg.norm(Bs, axis=0)
-    Bs = Bs.T.reshape(n_subspaces + 1, d, p).transpose(0,2,1)
+    Bs = Bs.T.reshape(n_subspaces + 1, d, p).transpose(0, 2, 1)
     B0, Bs = Bs[0], Bs[1:]
     theta_max = get_theta(Bs)
     theta = theta_coef * theta_max
     alpha = 0.9
     eps = 0.01
     while abs(get_theta(Bs) - theta) > eps:
-        print(abs(get_theta(Bs) - theta))
+        # print(abs(get_theta(Bs) - theta))
         Bs = alpha * Bs + (1-alpha) * B0
 
     B_z = Bs[z - 1]
@@ -83,12 +83,18 @@ def plot_predicted_data(Xp, Grps):
     plt.show()
 
 
-def run_alg(data, s, d, cst, optm, lmbda, n_subspaces, n_edges_to_keep=0):
+def run_alg(data, s, d, cst, optm, lmbda, n_subspaces, n_edges_to_keep=0, k_means=False):
     if cst == 1 and n_edges_to_keep != 0:
         n_edges_to_keep = d + 1
-    display(data)
+    # display(data)
+
+    if k_means:
+        km = KMeans(n_clusters=n_subspaces).fit(data)
+        labels = km.labels_
+        Grps = BestMap(s, labels + 1)
+
     Xp = DataProjection(data.T, d, type='NormalProj')
-    display(Xp.T, data)
+    # display(Xp.T, data)
     CMat = SparseCoefRecovery(Xp, cst, optm, lmbda)
     # plt.imshow(CMat)
     # plt.show()
@@ -101,11 +107,12 @@ def run_alg(data, s, d, cst, optm, lmbda, n_subspaces, n_edges_to_keep=0):
 
     if not Fail:
         CKSym = BuildAdjacency(CMatC, n_edges_to_keep)
-        Grps = SpectralClustering(CKSym, n_subspaces)
-        # Grps = BestMap(sc, Grps)
+        Grps = SpectralClustering(CKSym, n_subspaces) + 1
+        Grps = BestMap(sc, Grps)
+        print(f"got: {Grps}\nexp: {sc}")
         Missrate = float(np.sum(sc != Grps)) / sc.size
         print("Misclassification rate: {:.4f} %".format(Missrate * 100))
-        plot_predicted_data(Xp, Grps)
+        # plot_predicted_data(Xp, Grps)
     else:
         print("Something failed")
 
@@ -142,10 +149,11 @@ def main():
         for p in range(4, 8, 1):
             for d in range(-1, -5, -1):
                 for theta in range(-2, 1, 1):
-                   x, z, _, = get_data(n=2**n, p=2**p, d=p * 2**d, theta_coef=10**theta, n_subspaces=n_subspaces, sigma_2=1)
+                    x, z, _ = get_data(n=2**n, p=2**p, d=int(2**(p+d)), theta_coef=10**theta, n_subspaces=n_subspaces, sigma_2=0.01)
+                    run_alg(x, z, d=int(2**(p+d)), cst=1, optm='L1ED', lmbda=0.001, n_subspaces=n_subspaces, n_edges_to_keep=0)
 
 
-    x, z, Bs = get_data(n=100, p=3, d=2, n_subspaces=2, sigma_2=1)
+    # x, z, Bs = get_data(n=100, p=3, d=2, n_subspaces=2, sigma_2=1)
 
     # display(x)
     # data, s = get_gaussian_data(n=200, p=3, sigma_2=1)

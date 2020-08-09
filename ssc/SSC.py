@@ -1,4 +1,3 @@
-import numpy as np
 from ssc.DataProjection import *
 from ssc.BuildAdjacency import *
 from ssc.OutlierDetection import *

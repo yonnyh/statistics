@@ -29,25 +29,25 @@ def SparseCoefRecovery(Xp, cst=0, Opt='Lasso', lmbda=0.001):
 
         if cst == 1:
             if Opt == 'Lasso':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1) + lmbda * cvx.norm(Y * c - y))
                 constraint = [cvx.sum(c) == 1]
                 prob = cvx.Problem(obj, constraint)
                 prob.solve()
             elif Opt == 'L1Perfect':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [Y * c == y, cvx.sum(c) == 1]
                 prob = cvx.Problem(obj, constraint)
                 prob.solve()
             elif Opt == 'L1Noise':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [(Y * c - y) <= lmbda, cvx.sum(c) == 1]
                 prob = cvx.Problem(obj, constraint)
                 prob.solve()
             elif Opt == 'L1ED':
-                c = cvx.Variable(N - 1 + D, 1)
+                c = cvx.Variable(N - 1 + D)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [np.concatenate((Y, np.identity(D)), axis=1)
                               * c == y, cvx.sum(c[0:N - 1]) == 1]
@@ -55,24 +55,24 @@ def SparseCoefRecovery(Xp, cst=0, Opt='Lasso', lmbda=0.001):
                 prob.solve()
         else:
             if Opt == 'Lasso':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1) + lmbda * cvx.norm(Y * c - y))
                 prob = cvx.Problem(obj)
                 prob.solve()
             elif Opt == 'L1Perfect':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [Y * c == y]
                 prob = cvx.Problem(obj, constraint)
                 prob.solve()
             elif Opt == 'L1Noise':
-                c = cvx.Variable(N - 1, 1)
+                c = cvx.Variable(N - 1)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [(Y * c - y) <= lmbda]
                 prob = cvx.Problem(obj, constraint)
                 prob.solve()
             elif Opt == 'L1ED':
-                c = cvx.Variable(N - 1 + D, 1)
+                c = cvx.Variable(N - 1 + D)
                 obj = cvx.Minimize(cvx.norm(c, 1))
                 constraint = [np.concatenate((Y, np.identity(D)), axis=1) * c == y]
                 prob = cvx.Problem(obj, constraint)
